@@ -4,11 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Joseph Wilebski — Executive Strategy. Operator Precision.</title>
-<link rel="icon" type="image/x-icon" href="/favicon.ico">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="manifest" href="/site.webmanifest">
-<meta name="theme-color" content="#0d0f14">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
@@ -249,9 +244,9 @@ nav {
   align-items: center;
   gap: 0.6rem;
   padding: 0.85rem 2rem;
-  background: transparent;
+  background: var(--gold);
   border: 1px solid var(--gold);
-  color: var(--gold-light);
+  color: var(--bg);
   font-family: var(--font-body);
   font-size: 0.8rem;
   font-weight: 500;
@@ -263,9 +258,9 @@ nav {
 }
 
 .hero-cta:hover {
-  background: rgba(201,168,76,0.08);
+  background: var(--gold-light);
   border-color: var(--gold-light);
-  color: var(--gold-light);
+  color: var(--bg);
 }
 
 .hero-cta-arrow {
@@ -889,8 +884,80 @@ footer {
   .career-item { grid-template-columns: 80px 1fr; gap: 1.25rem; }
   .career-item::after { left: 76px; }
 }
-</style>
 
+/* MOBILE MENU */
+.mobile-menu-btn {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: 4px;
+  background: none;
+  border: none;
+}
+
+.mobile-menu-btn span {
+  display: block;
+  width: 24px;
+  height: 1.5px;
+  background: var(--text-muted);
+  transition: all 0.3s;
+}
+
+.mobile-menu-btn.open span:nth-child(1) {
+  transform: translateY(6.5px) rotate(45deg);
+}
+
+.mobile-menu-btn.open span:nth-child(2) {
+  opacity: 0;
+}
+
+.mobile-menu-btn.open span:nth-child(3) {
+  transform: translateY(-6.5px) rotate(-45deg);
+}
+
+.mobile-nav {
+  display: none;
+  position: fixed;
+  top: 65px;
+  left: 0;
+  right: 0;
+  background: rgba(13,15,20,0.97);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  z-index: 99;
+  padding: 1.5rem 2rem;
+  flex-direction: column;
+  gap: 0;
+}
+
+.mobile-nav.open {
+  display: flex;
+}
+
+.mobile-nav a {
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: var(--text-muted);
+  text-decoration: none;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.9rem 0;
+  border-bottom: 1px solid var(--border);
+  transition: color 0.2s;
+}
+
+.mobile-nav a:last-child {
+  border-bottom: none;
+}
+
+.mobile-nav a:hover { color: var(--gold-light); }
+
+@media (max-width: 640px) {
+  .mobile-menu-btn { display: flex; }
+}
+
+</style>
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -898,10 +965,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','GTM-TCG5XX');</script>
 <!-- End Google Tag Manager -->
-
 </head>
 <body>
-
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TCG5XX"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -930,13 +995,25 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <li><a href="#expertise">Expertise</a></li>
     <li><a href="#career">Career</a></li>
     <li><a href="#projects">Projects</a></li>
-    <!--
     <li><a href="#blog">Insights</a></li>
     <li><a href="#resources">Resources</a></li>
-    -->
     <li><a href="#contact">Connect</a></li>
   </ul>
+  <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
 </nav>
+
+<!-- MOBILE NAV -->
+<div class="mobile-nav" id="mobileNav">
+  <a href="#about" onclick="closeMobileMenu()">About</a>
+  <a href="#expertise" onclick="closeMobileMenu()">Expertise</a>
+  <a href="#career" onclick="closeMobileMenu()">Career</a>
+  <a href="#projects" onclick="closeMobileMenu()">Projects</a>
+  <a href="#contact" onclick="closeMobileMenu()">Connect</a>
+</div>
 
 <!-- HERO -->
 <section class="hero">
@@ -954,11 +1031,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <div class="hero-stat-label">Team members led</div>
         </div>
         <div>
-          <div class="hero-stat-num">$300M+</div>
+          <div class="hero-stat-num">$300M</div>
           <div class="hero-stat-label">Product line managed</div>
         </div>
         <div>
-          <div class="hero-stat-num">20+</div>
+          <div class="hero-stat-num">15+</div>
           <div class="hero-stat-label">Years in digital marketing</div>
         </div>
       </div>
@@ -984,15 +1061,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <h2 class="section-heading">The rare executive who never stopped building.</h2>
         <div class="about-text">
           <p>Most executives at my level stopped doing the hands-on work years ago. I never did — and I think that's what makes the difference.</p>
-          <p>Over 14+ years at <strong>Thomson Reuters</strong> and <strong>Internet Brands</strong>, I scaled digital marketing operations across four countries, cut seven-figure budgets through AI implementation, and helped drive strategy for some of the most recognized brands in legal marketing.</p>
-          <p>When Thomson Reuters divested FindLaw, I served on the divestiture team representing operations. Then I immediately led the post-acquisition integration on the buyer side. <strong>Not many people have operated on both sides of a major M&A transaction.</strong> I have.</p>
+          <p>Over 13+ years at <strong>FindLaw (Thomson Reuters)</strong> and <strong>Internet Brands</strong>, I scaled digital marketing operations across four countries, cut eight-figure budgets through AI implementation, and helped drive strategy for one of the most recognized brands in legal marketing.</p>
+          <p>When Thomson Reuters divested FindLaw, I served on the divestiture team representing all operations. Then I immediately led the post-acquisition integration on the buyer side. <strong>Not many people have operated on both sides of a major M&A transaction.</strong> I have.</p>
           <p>Before digital marketing, I spent a decade as a <strong>Senior Instrumentation &amp; Controls Technician</strong> in the energy industry. That foundation — operational discipline, systems thinking, DoT compliance — shapes how I approach everything I do.</p>
         </div>
       </div>
       <div class="about-pillars">
         <div class="pillar">
           <div class="pillar-title">Enterprise Scale</div>
-          <div class="pillar-text">500+ global teams, $300M+ product lines, 7-figure budget management — built for complexity.</div>
+          <div class="pillar-text">500+ global teams, $300M product lines, 7-figure budget management — built for complexity.</div>
         </div>
         <div class="pillar">
           <div class="pillar-title">Practitioner Instincts</div>
@@ -1000,7 +1077,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
         <div class="pillar">
           <div class="pillar-title">Cross-Industry Depth</div>
-          <div class="pillar-text">Digital marketing [legal, tax, home services, and others], professional services, energy, M&A operations — rare range for a marketing executive.</div>
+          <div class="pillar-text">Legal marketing, professional services, energy, M&A operations — rare range for a marketing executive.</div>
         </div>
         <div class="pillar">
           <div class="pillar-title">AI-Forward</div>
@@ -1021,7 +1098,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="expertise-accent"></div>
         <div class="expertise-num">01</div>
         <div class="expertise-card-title">Enterprise Digital Marketing</div>
-        <div class="expertise-card-desc">SEO, SEM, PPC, content strategy, local search, social, affiliate, and performance marketing at enterprise scale and across thousands of clients.</div>
+        <div class="expertise-card-desc">SEO, SEM, PPC, content strategy, local search, affiliate, and performance marketing at enterprise scale across thousands of clients.</div>
       </div>
       <div class="expertise-card">
         <div class="expertise-accent"></div>
@@ -1039,13 +1116,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="expertise-accent"></div>
         <div class="expertise-num">04</div>
         <div class="expertise-card-title">M&amp;A Operations</div>
-        <div class="expertise-card-desc">Direct experience on both sides of a major transaction — divestiture team at Thomson Reuters, operations integration lead at Internet Brands.</div>
+        <div class="expertise-card-desc">Direct experience on both sides of a major transaction — divestiture team at Thomson Reuters, integration lead at Internet Brands.</div>
       </div>
       <div class="expertise-card">
         <div class="expertise-accent"></div>
         <div class="expertise-num">05</div>
         <div class="expertise-card-title">Legal &amp; Professional Services</div>
-        <div class="expertise-card-desc">14+ years in legal marketing. Deep expertise in attorney acquisition and law firm digital presence.</div>
+        <div class="expertise-card-desc">13+ years in legal marketing. Deep expertise in attorney acquisition, law firm digital presence, and LegalTech platforms.</div>
       </div>
       <div class="expertise-card">
         <div class="expertise-accent"></div>
@@ -1068,7 +1145,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div>
           <div class="career-content-title">Independent Consultant</div>
           <div class="career-content-company">Self-Employed</div>
-          <div class="career-content-desc">Digital marketing strategy, enterprise operations advisory, AI implementation consulting, and fractional CMO|COO engagements.</div>
+          <div class="career-content-desc">Digital marketing strategy, enterprise operations advisory, AI implementation consulting, and fractional CMO engagements.</div>
         </div>
       </div>
       <div class="career-item">
@@ -1076,7 +1153,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div>
           <div class="career-content-title">VP, Digital Solutions → Senior Director</div>
           <div class="career-content-company">Internet Brands</div>
-          <div class="career-content-desc">Led post-acquisition operations integration of FindLaw into Internet Brands. Built and executed the merger plan for combined 500+ person legal operations team.</div>
+          <div class="career-content-desc">Led post-acquisition integration of FindLaw into Internet Brands. Built and executed the merger plan for combined 500+ person legal operations team.</div>
         </div>
       </div>
       <div class="career-item">
@@ -1084,7 +1161,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div>
           <div class="career-content-title">Senior Director → Senior SEO Strategist</div>
           <div class="career-content-company">FindLaw (Thomson Reuters)</div>
-          <div class="career-content-desc">13+ years scaling digital marketing operations for the legal industry. Led 450+ global team across 4 countries. Managed $300M+ product line. Served on divestiture team.</div>
+          <div class="career-content-desc">13 years scaling digital marketing operations for the legal industry. Led 450+ global team across 4 countries. Managed $300M product line. Served on divestiture team.</div>
         </div>
       </div>
       <div class="career-item">
@@ -1125,7 +1202,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <span class="project-tag">Digital Agency</span>
         <div class="project-title">Marketing Agency</div>
         <div class="project-desc">A full-service digital marketing agency focused on enterprise strategy, SEO, AI-powered content, and performance marketing for growing businesses.</div>
-        <div class="project-status coming-soon">Site Coming Soon</div>
+        <div class="project-status coming-soon">Coming Soon</div>
       </div>
       <div class="project-card">
         <span class="project-tag">Web Applications</span>
@@ -1143,8 +1220,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 </section>
 
-<!-- BLOG | INSIGHTS -->
-<!--
+<!-- BLOG -->
 <section id="blog">
   <div class="section-inner">
     <div class="section-label">Insights</div>
@@ -1171,10 +1247,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
   </div>
 </section>
--->
 
 <!-- RESOURCES -->
-<!--
 <section id="resources">
   <div class="section-inner">
     <div class="section-label">Resources</div>
@@ -1223,7 +1297,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
   </div>
 </section>
--->
 
 <!-- CONTACT -->
 <section id="contact">
@@ -1231,7 +1304,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="contact-inner">
       <div class="section-label" style="justify-content:center;">Connect</div>
       <h2 class="contact-heading">Let's work together.</h2>
-      <p class="contact-sub">Available for consulting engagements, fractional CMO | COO roles, board advisory, expert network consultations, and speaking opportunities.</p>
+      <p class="contact-sub">Available for consulting engagements, fractional CMO roles, board advisory, expert network consultations, and speaking opportunities.</p>
       <a href="https://www.linkedin.com/in/josephwilebski/" target="_blank" class="contact-cta">
         Connect on LinkedIn →
       </a>
@@ -1247,11 +1320,39 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <!-- FOOTER -->
 <footer>
-  <span class="footer-copy">© <span id="year"></span> Joseph Wilebski. All rights reserved.</span>
+  <span class="footer-copy">© 2025 Joseph Wilebski. All rights reserved.</span>
   <span class="footer-tagline">Executive strategy. Operator precision.</span>
 </footer>
+
+
 <script>
-document.getElementById('year').textContent = new Date().getFullYear();
+const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+const mobileNav = document.getElementById('mobileNav');
+
+mobileMenuBtn.addEventListener('click', () => {
+  mobileMenuBtn.classList.toggle('open');
+  mobileNav.classList.toggle('open');
+});
+
+function closeMobileMenu() {
+  mobileMenuBtn.classList.remove('open');
+  mobileNav.classList.remove('open');
+}
+
+// Close menu when clicking outside
+document.addEventListener('click', (e) => {
+  if (!mobileMenuBtn.contains(e.target) && !mobileNav.contains(e.target)) {
+    closeMobileMenu();
+  }
+});
 </script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var el = document.getElementById('year');
+  if (el) el.textContent = new Date().getFullYear();
+});
+</script>
+
 </body>
 </html>
